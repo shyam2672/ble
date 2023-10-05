@@ -109,7 +109,7 @@ void loop() {
 
  
 
-  delay(4000);
+  delay(2000);
   tempsensor.shutdown_wake(1);
   delay(200);
 }

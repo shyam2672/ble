@@ -4,6 +4,7 @@ import 'dart:convert' show utf8;
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:oscilloscope/oscilloscope.dart';
+import 'package:uuid/uuid.dart';
 
 class SensorPage extends StatefulWidget {
   const SensorPage({Key? key, required this.device}) : super(key: key);
@@ -14,8 +15,19 @@ class SensorPage extends StatefulWidget {
 }
 
 class _SensorPageState extends State<SensorPage> {
-  final String SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
-  final String CHARACTERISTIC_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+  // final String SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+  // final String CHARACTERISTIC_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+  final String macAddress = "B4:E6:2D:87:7D:A7"; // Replace with the actual MAC address of your ESP32 device
+  final String baseUUID = "00000000-0000-1000-8000-00805F9B34FB"; // Base UUID for Bluetooth
+
+// final String serviceUUID = Uuid().v5(macAddress, baseUUID);
+// final String characteristicUUID = Uuid().v5(serviceUUID, baseUUID);
+
+  
+  final String SERVICE_UUID =  Uuid().v5(macAddress, baseUUID);
+  final String CHARACTERISTIC_UUID = Uuid().v5(SERVICE_UUID, baseUUID);
+  
+  
   bool isReady = false;
   Stream<List<int>>? stream;
   List traceTemp = [];
